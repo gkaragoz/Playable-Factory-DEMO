@@ -36,18 +36,18 @@ public class WoodDestructor : MonoBehaviour, IPooledObject {
         if (other.gameObject.tag == "Blade") {
             Debug.Log("Blade");
 
-            Destruct();
+            Destruct(other.transform.position.x);
 
             _hasDestructed = true;
         }
     }
 
-    private void Destruct() {
+    private void Destruct(float hitPointX) {
         DisableMainRigidbody();
         DisableMainCollider();
 
         foreach (Wood wood in _woodPieces) {
-            wood.OnDestructed(_bladeCollider);
+            wood.OnDestructed(_bladeCollider, hitPointX);
         }
 
         Invoke("SetPassive", _hideAfterSeconds);

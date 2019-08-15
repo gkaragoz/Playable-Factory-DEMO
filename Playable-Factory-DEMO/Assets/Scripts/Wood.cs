@@ -37,7 +37,7 @@ public class Wood : MonoBehaviour {
 
         switch (_side) {
             case Side.Right:
-                this.transform.localPosition = new Vector3(-2, 0, 0);
+                this.transform.localPosition = new Vector3(2, 0, 0);
                 break;
             case Side.Left:
                 this.transform.localPosition = new Vector3(2, 0, 0);
@@ -48,7 +48,13 @@ public class Wood : MonoBehaviour {
         this.transform.localScale = Vector3.one;
     }
 
-    public void OnDestructed(BoxCollider ignoredCollision) {
+    public void OnDestructed(BoxCollider ignoredCollision, float hitPointX) {
+        if (_side == Side.Left) {
+
+        }
+
+        //Time.timeScale = 0;
+
         AddCollider();
         IgnoreCollision(ignoredCollision);
         AddRigidbody();
