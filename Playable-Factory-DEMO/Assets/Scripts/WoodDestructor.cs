@@ -74,9 +74,9 @@ public class WoodDestructor : MonoBehaviour, IPooledObject {
 
         foreach (Wood wood in _woodPieces) {
             if (wood.GetSide() == Wood.Side.Left) {
-                wood.SetScaleY(leftWoodScaleY);
+                wood.SetScale(leftWoodScaleY);
             } else {
-                wood.SetScaleY(rightWoodScaleY);
+                wood.SetScale(rightWoodScaleY);
             }
 
             wood.OnDestructed(_bladeCollider, hitPointX);

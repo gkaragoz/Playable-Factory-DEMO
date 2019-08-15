@@ -47,8 +47,8 @@ public class WoodCreator : MonoBehaviour {
             leftWoodScaleValY = Random.Range(left_wood_minVal, left_wood_maxVal);
             rightWoodScaleValY = Random.Range(right_wood_minVal, right_wood_maxVal);
 
-            leftWoodPiece.SetScaleY(leftWoodScaleValY);
-            rightWoodPiece.SetScaleY(rightWoodScaleValY);
+            leftWoodPiece.SetScale(leftWoodScaleValY, woodCutArea.GetScaleValWidth());
+            rightWoodPiece.SetScale(rightWoodScaleValY, woodCutArea.GetScaleValWidth());
 
             // Snap left wood piece to right wood piece.
             leftWoodPiece.transform.position = new Vector3(rightWoodPiece.transform.position.x + rightWoodPiece.GetLength() + leftWoodPiece.GetLength(), leftWoodPiece.transform.position.y, leftWoodPiece.transform.position.z);
@@ -71,6 +71,7 @@ public class WoodCreator : MonoBehaviour {
         float collisionHeight = leftWoodPiece.transform.position.x - rightWoodPiece.transform.position.x;
 
         mainCollider.height = collisionHeight;
+        mainCollider.radius = woodCutArea.GetScaleValWidth() * 0.5f;
 
         float centerXOfWood = (leftWoodPiece.GetLength() + rightWoodPiece.GetLength()) * 0.5f;
         mainCollider.center = new Vector3(centerXOfWood, 0f, 0f);

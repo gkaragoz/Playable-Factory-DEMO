@@ -35,8 +35,12 @@ public class Wood : MonoBehaviour {
         _rigidbody = this.gameObject.AddComponent<Rigidbody>();
     }
 
-    public void SetScaleY(float scaleY) {
-        this.transform.localScale = new Vector3(this.transform.localScale.x, scaleY * 0.5f, this.transform.localScale.z);
+    public void SetScale(float scaleY, float width = 0f) {
+        if (width == 0f) {
+            width = this.transform.localScale.x;
+        }
+
+        this.transform.localScale = new Vector3(width, scaleY * 0.5f, width);
     }
 
     public void ResetStatus() {
