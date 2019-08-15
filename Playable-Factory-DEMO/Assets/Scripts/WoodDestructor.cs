@@ -34,8 +34,6 @@ public class WoodDestructor : MonoBehaviour, IPooledObject {
         }
 
         if (other.gameObject.tag == "Blade") {
-            Debug.Log("Blade");
-
             Destruct(other.transform.position.x);
 
             _hasDestructed = true;
@@ -46,8 +44,8 @@ public class WoodDestructor : MonoBehaviour, IPooledObject {
         DisableMainRigidbody();
         DisableMainCollider();
 
-        float centerOfWood = (transform.parent.position.x + 4) / 2;
-        float totalWoodLength = 4;
+        float totalWoodLength = _woodPieces[0].GetLength() + _woodPieces[1].GetLength();
+        float centerOfWood = (transform.position.x + totalWoodLength) / 2;
         float rightWoodScaleY = 0;
         float leftWoodScaleY = 0;
 
@@ -65,12 +63,6 @@ public class WoodDestructor : MonoBehaviour, IPooledObject {
         else {
             leftWoodScaleY = rightWoodScaleY = centerOfWood * 0.5f;
         }
-
-        Debug.Log("HIT POINT: " + hitPointX);
-        Debug.Log("CENTER OF WOOD: " + centerOfWood);
-        Debug.Log("TOTAL WOOD LENGTH: " + totalWoodLength);
-        Debug.Log("LEFT:" + leftWoodScaleY);
-        Debug.Log("RIGHT:" + rightWoodScaleY);
 
         foreach (Wood wood in _woodPieces) {
             if (wood.GetSide() == Wood.Side.Left) {

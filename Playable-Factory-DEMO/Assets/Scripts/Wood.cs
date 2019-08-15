@@ -45,14 +45,14 @@ public class Wood : MonoBehaviour {
 
         switch (_side) {
             case Side.Right:
-                this.transform.localPosition = new Vector3(2, 0, 0);
+                this.transform.localPosition = new Vector3(4, 0, 0);
                 break;
             case Side.Left:
-                this.transform.localPosition = new Vector3(2, 0, 0);
+                this.transform.localPosition = new Vector3(0, 0, 0);
                 break;
         }
 
-        this.transform.localEulerAngles = new Vector3(0, 0, -90);
+        this.transform.localEulerAngles = new Vector3(0, 0, 90);
         this.transform.localScale = Vector3.one;
     }
 
@@ -62,8 +62,12 @@ public class Wood : MonoBehaviour {
         IgnoreCollision(ignoredCollision);
         AddRigidbody();
 
-        _rigidbody.velocity = Vector3.forward;
-        _rigidbody.AddForceAtPosition(Vector3.forward * Random.Range(10, 80), transform.position);
+        _rigidbody.velocity = Vector3.back;
+        _rigidbody.AddForceAtPosition(Vector3.back * Random.Range(10, 80), transform.position);
+    }
+
+    public float GetLength() {
+        return this.transform.localScale.y * 2f;
     }
 
 }
