@@ -36,7 +36,7 @@ public class Wood : MonoBehaviour {
     }
 
     public void SetScaleY(float scaleY) {
-        this.transform.localScale = new Vector3(this.transform.localScale.x, scaleY, this.transform.localScale.z);
+        this.transform.localScale = new Vector3(this.transform.localScale.x, scaleY * 0.5f, this.transform.localScale.z);
     }
 
     public void ResetStatus() {
@@ -68,6 +68,17 @@ public class Wood : MonoBehaviour {
 
     public float GetLength() {
         return this.transform.localScale.y * 2f;
+    }
+
+    public void SetPositionX(float posX) {
+        switch (_side) {
+            case Side.Right:
+                transform.position = new Vector3(posX, transform.position.y, transform.position.z);
+                break;
+            case Side.Left:
+                transform.position = new Vector3(posX - GetLength(), transform.position.y, transform.position.z);
+                break;
+        }
     }
 
 }
