@@ -46,7 +46,39 @@ public class WoodDestructor : MonoBehaviour, IPooledObject {
         DisableMainRigidbody();
         DisableMainCollider();
 
+        float centerOfWood = (transform.parent.position.x + 4) / 2;
+        float totalWoodLength = 4;
+        float rightWoodScaleY = 0;
+        float leftWoodScaleY = 0;
+
+        // Right side cutting.
+        if (hitPointX > centerOfWood) {
+            rightWoodScaleY = (totalWoodLength - hitPointX) * 0.5f;
+            leftWoodScaleY = hitPointX * 0.5f;
+        } 
+        // Left side cutting.
+        else if (hitPointX < centerOfWood) {
+            rightWoodScaleY = (totalWoodLength - hitPointX) * 0.5f;
+            leftWoodScaleY = hitPointX * 0.5f;
+        }
+        // Perfectly centered cutting.
+        else {
+            leftWoodScaleY = rightWoodScaleY = centerOfWood * 0.5f;
+        }
+
+        Debug.Log("HIT POINT: " + hitPointX);
+        Debug.Log("CENTER OF WOOD: " + centerOfWood);
+        Debug.Log("TOTAL WOOD LENGTH: " + totalWoodLength);
+        Debug.Log("LEFT:" + leftWoodScaleY);
+        Debug.Log("RIGHT:" + rightWoodScaleY);
+
         foreach (Wood wood in _woodPieces) {
+            if (wood.GetSide() == Wood.Side.Left) {
+                wood.SetScaleY(leftWoodScaleY);
+            } else {
+                wood.SetScaleY(rightWoodScaleY);
+            }
+
             wood.OnDestructed(_bladeCollider, hitPointX);
         }
 

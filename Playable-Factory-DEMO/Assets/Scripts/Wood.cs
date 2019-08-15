@@ -13,6 +13,10 @@ public class Wood : MonoBehaviour {
         _startTransform = this.transform;
     }
 
+    public Side GetSide() {
+        return _side;
+    }
+
     public enum Side {
         Right,
         Left
@@ -29,6 +33,10 @@ public class Wood : MonoBehaviour {
 
     private void AddRigidbody() {
         _rigidbody = this.gameObject.AddComponent<Rigidbody>();
+    }
+
+    public void SetScaleY(float scaleY) {
+        this.transform.localScale = new Vector3(this.transform.localScale.x, scaleY, this.transform.localScale.z);
     }
 
     public void ResetStatus() {
@@ -49,11 +57,6 @@ public class Wood : MonoBehaviour {
     }
 
     public void OnDestructed(BoxCollider ignoredCollision, float hitPointX) {
-        if (_side == Side.Left) {
-
-        }
-
-        //Time.timeScale = 0;
 
         AddCollider();
         IgnoreCollision(ignoredCollision);

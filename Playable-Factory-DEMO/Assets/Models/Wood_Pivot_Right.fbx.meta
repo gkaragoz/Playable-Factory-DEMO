@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7489b56e87e228b44b36ba61e3cf01eb
+guid: f30080d8f306c314caa9e31e33fa7b29
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable:
@@ -23,7 +23,7 @@ ModelImporter:
     second: //RootNode
   - first:
       43: 4300000
-    second: solfa_pivot_
+    second: "sa\u011Fda_pivet_"
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -111,7 +111,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 0.01
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
