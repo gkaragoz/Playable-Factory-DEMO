@@ -4,6 +4,8 @@ public class WoodDestructor : MonoBehaviour, IPooledObject {
 
     [Header("Initializations")]
     [SerializeField]
+    private WoodCreator _woodCreator = null;
+    [SerializeField]
     private Wood[] _woodPieces = null;
     [SerializeField]
     private CapsuleCollider _mainCollider = null;
@@ -110,6 +112,8 @@ public class WoodDestructor : MonoBehaviour, IPooledObject {
     }
 
     public void OnObjectReused() {
+        _woodCreator.ReCreate();
+
         EnableMainCollider();
         EnableMainRigidbody();
 

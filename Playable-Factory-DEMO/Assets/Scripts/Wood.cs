@@ -7,11 +7,6 @@ public class Wood : MonoBehaviour {
 
     private MeshCollider _collider = null;
     private Rigidbody _rigidbody = null;
-    private Transform _startTransform = null;
-
-    private void Awake() {
-        _startTransform = this.transform;
-    }
 
     public Side GetSide() {
         return _side;
