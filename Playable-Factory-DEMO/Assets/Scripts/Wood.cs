@@ -29,7 +29,6 @@ public class Wood : MonoBehaviour {
 
     private void AddRigidbody() {
         _rigidbody = this.gameObject.AddComponent<Rigidbody>();
-        //_rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }
 
     public void ResetStatus() {
