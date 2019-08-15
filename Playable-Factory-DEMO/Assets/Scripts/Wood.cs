@@ -51,7 +51,7 @@ public class Wood : MonoBehaviour {
         this.transform.localScale = Vector3.one;
     }
 
-    public void OnDestructed(BoxCollider ignoredCollision, float hitPointX) {
+    public void OnDestructed(BoxCollider ignoredCollision) {
 
         AddCollider();
         IgnoreCollision(ignoredCollision);

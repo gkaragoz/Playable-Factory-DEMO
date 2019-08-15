@@ -239,6 +239,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wood_Pivot_Left
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: f30080d8f306c314caa9e31e33fa7b29, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f30080d8f306c314caa9e31e33fa7b29, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -315,6 +319,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 7489b56e87e228b44b36ba61e3cf01eb, type: 3}
       propertyPath: m_Name
       value: Wood_Pivot_Right
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 7489b56e87e228b44b36ba61e3cf01eb, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7489b56e87e228b44b36ba61e3cf01eb, type: 3}
       propertyPath: m_LocalPosition.x

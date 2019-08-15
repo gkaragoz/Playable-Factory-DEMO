@@ -73,7 +73,7 @@ public class WoodDestructor : MonoBehaviour, IPooledObject {
                 wood.SetScaleY(rightWoodScaleY);
             }
 
-            wood.OnDestructed(_bladeCollider, hitPointX);
+            wood.OnDestructed(_bladeCollider);
         }
 
         Invoke("SetPassive", _hideAfterSeconds);

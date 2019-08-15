@@ -47,8 +47,6 @@ public class WoodCreator : MonoBehaviour {
         _mainCollider.radius = randomWidth * 0.5f;
         _mainCollider.height = GetTotalLengthOfWood() + randomWidth;
         _mainCollider.center = new Vector3(GetTotalLengthOfWood() * 0.5f, 0, 0);
-
-        // Fix main wood position to center it.
     }
 
     public float GetWidth() {
