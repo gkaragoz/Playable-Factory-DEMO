@@ -13,13 +13,6 @@ public class WoodCutArea : MonoBehaviour {
     private float _maxLength = 0.5f;
 
     public bool IsCreationValid() {
-        Debug.Log("RingRight: " + GetRightCornerPosXOfTheRing());
-        Debug.Log("RingLeft: " + GetLeftCornerPosXOfTheRing());
-        Debug.Log("WoodRight: " + _woodCreator.GetRightCornerPosXOfWood());
-        Debug.Log("WoodLeft: " + _woodCreator.GetLeftCornerPosXOfWood());
-        Debug.Log("WoodCenter: " + _woodCreator.GetCenterPosXOfWood());
-        Debug.Log("WoodDesPos: " + _woodCreator.GetDestructionPosX());
-
         if (GetRightCornerPosXOfTheRing() > _woodCreator.GetRightCornerPosXOfWood() || GetLeftCornerPosXOfTheRing() < _woodCreator.GetLeftCornerPosXOfWood()) {
             return false;
         } else {

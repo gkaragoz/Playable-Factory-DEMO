@@ -142,7 +142,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 4.8
+  m_Height: 5
   m_Direction: 0
   m_Center: {x: 2, y: 0, z: 0}
 --- !u!54 &505242732
@@ -176,6 +176,7 @@ MonoBehaviour:
   _woodCutArea: {fileID: 7013279306341423600}
   _woodLeft: {fileID: 481928321}
   _woodRight: {fileID: 955219757}
+  _mainCollider: {fileID: 8384429247512544710}
   _minLength: 0.4
   _maxLength: 1
   _minWidth: 0.5
@@ -325,7 +326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7489b56e87e228b44b36ba61e3cf01eb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7489b56e87e228b44b36ba61e3cf01eb, type: 3}
       propertyPath: m_LocalRotation.x
