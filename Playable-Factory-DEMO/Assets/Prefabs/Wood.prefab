@@ -11,14 +11,14 @@ GameObject:
   - component: {fileID: 3185385394304844211}
   - component: {fileID: 9160282572467578725}
   - component: {fileID: 7820040441293543139}
-  - component: {fileID: 6413132465144171317}
+  - component: {fileID: 7013279306341423600}
   m_Layer: 0
   m_Name: Cut_Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3185385394304844211
 Transform:
   m_ObjectHideFlags: 0
@@ -78,20 +78,22 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &6413132465144171317
-CapsuleCollider:
+--- !u!114 &7013279306341423600
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2971908477917217698}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c4ddb1d83a160848802444d2b851be9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _woodCreator: {fileID: 927614885172297394}
+  _extraMultiplier: 1.025
+  _minLength: 0.15
+  _maxLength: 0.5
 --- !u!1 &5528501225260880666
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,6 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c1de3b67f500124c8a4af15f7e88bf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _woodCutArea: {fileID: 7013279306341423600}
   _woodLeft: {fileID: 481928321}
   _woodRight: {fileID: 955219757}
   _minLength: 0.4
