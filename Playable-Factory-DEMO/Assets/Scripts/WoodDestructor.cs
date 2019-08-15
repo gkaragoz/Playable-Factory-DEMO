@@ -94,7 +94,6 @@ public class WoodDestructor : MonoBehaviour, IPooledObject {
     }
 
     private void SetPassive() {
-        Debug.Log("SET PASSIVE");
         _rigidbody.useGravity = false;
 
         _rigidbody.velocity = Vector3.zero;
