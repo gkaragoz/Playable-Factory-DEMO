@@ -62,8 +62,12 @@ public class Wood : MonoBehaviour {
         IgnoreCollision(ignoredCollision);
         AddRigidbody();
 
-        _rigidbody.velocity = Vector3.forward;
-        _rigidbody.AddForceAtPosition(Vector3.forward * Random.Range(10, 80), transform.position);
+        _rigidbody.velocity = Vector3.back;
+        _rigidbody.AddForceAtPosition(Vector3.back * Random.Range(10, 80), transform.position);
+    }
+
+    public float GetLength() {
+        return this.transform.localScale.y * 2f;
     }
 
 }
