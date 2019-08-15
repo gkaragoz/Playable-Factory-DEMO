@@ -2,10 +2,6 @@
 
 public class BladeController : MonoBehaviour {
 
-    [Header("Debug Purpose Initializations")]
-    [SerializeField]
-    private Transform _rayPoint = null;
-
     [Header("Movement")]
     [SerializeField]
     private KeyCode _movementKey = KeyCode.Mouse2;
@@ -90,17 +86,6 @@ public class BladeController : MonoBehaviour {
         Vector3 pos = transform.position;
         pos.x = Mathf.Clamp(transform.position.x, _boundsX[0], _boundsX[1]);
         transform.position = pos;
-    }
-
-    private void OnDrawGizmos() {
-        Gizmos.color = Color.cyan;
-
-        if (_rayPoint == null) {
-            return;
-        }
-
-        Vector3 direction = _rayPoint.position - transform.position;
-        Gizmos.DrawRay(transform.position, direction);
     }
 
 }

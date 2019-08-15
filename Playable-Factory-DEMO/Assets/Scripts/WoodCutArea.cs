@@ -3,7 +3,7 @@
 public class WoodCutArea : MonoBehaviour {
 
     [SerializeField]
-    private WoodCreator _woodCreator;
+    private WoodCreator _woodCreator = null;
 
     [SerializeField]
     private float _extraMultiplier = 1.025f;
