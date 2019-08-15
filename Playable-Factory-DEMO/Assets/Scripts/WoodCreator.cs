@@ -10,6 +10,7 @@ public class WoodCreator : MonoBehaviour, IPooledObject {
     public WoodCutArea woodCutArea = null;
     public CapsuleCollider mainCollider = null;
     public Renderer platformRenderer = null;
+    public WoodDestructor woodDestructor = null;
 
     // Main Wood
     public float main_wood_total_length_minVal = 0.1f;
@@ -41,6 +42,10 @@ public class WoodCreator : MonoBehaviour, IPooledObject {
         return _main_wood_scaleVal;
     }
 
+    private void Awake() {
+        woodDestructor = GetComponent<WoodDestructor>();
+    }
+
     public void Create() {
         InitWoods();
 
@@ -70,6 +75,8 @@ public class WoodCreator : MonoBehaviour, IPooledObject {
     }
 
     public void OnObjectReused() {
+        woodDestructor.ResetStatus();
+
         Create();
     }
 
@@ -84,7 +91,7 @@ public class WoodCreator : MonoBehaviour, IPooledObject {
     private void SetMainWoodCollider() {
         float collisionHeight = leftWoodPiece.transform.position.x - rightWoodPiece.transform.position.x;
 
-        mainCollider.height = collisionHeight;
+        mainCollider.height = collisionHeight * 1.1f;
         mainCollider.radius = _main_wood_scaleVal * 0.5f;
 
         float centerXOfWood = (leftWoodPiece.GetLength() + rightWoodPiece.GetLength()) * 0.5f;

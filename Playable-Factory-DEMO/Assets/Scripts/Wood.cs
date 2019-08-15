@@ -47,15 +47,7 @@ public class Wood : MonoBehaviour {
         Destroy(this._rigidbody);
         Destroy(this._collider);
 
-        switch (_side) {
-            case Side.Right:
-                this.transform.localPosition = new Vector3(2, 0, 0);
-                break;
-            case Side.Left:
-                this.transform.localPosition = new Vector3(2, 0, 0);
-                break;
-        }
-
+        this.transform.localPosition = Vector3.zero;
         this.transform.localEulerAngles = new Vector3(0, 0, -90);
         this.transform.localScale = Vector3.one;
     }

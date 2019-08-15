@@ -582,7 +582,7 @@ MonoBehaviour:
     name: Wood
     prefab: {fileID: 5528501225260880666, guid: 8295cfb13ffae804ab72a4ba2d4f725a,
       type: 3}
-    size: 5
+    size: 6
 --- !u!114 &1837299285
 MonoBehaviour:
   m_ObjectHideFlags: 0

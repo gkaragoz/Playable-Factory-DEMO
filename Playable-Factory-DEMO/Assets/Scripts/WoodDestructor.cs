@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class WoodDestructor : MonoBehaviour, IPooledObject {
+public class WoodDestructor : MonoBehaviour {
 
     [Header("Initializations")]
     [SerializeField]
@@ -109,7 +109,7 @@ public class WoodDestructor : MonoBehaviour, IPooledObject {
         this.gameObject.SetActive(false);
     }
 
-    public void OnObjectReused() {
+    public void ResetStatus() {
         EnableMainCollider();
         EnableMainRigidbody();
 
