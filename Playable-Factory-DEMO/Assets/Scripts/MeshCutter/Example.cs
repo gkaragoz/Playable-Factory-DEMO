@@ -4,23 +4,6 @@ public class Example : MonoBehaviour {
 
     public Material capMaterial;
 
-    private void Update() {
-        if (Input.GetMouseButtonDown(0)) {
-            RaycastHit hit;
-
-            if (Physics.Raycast(transform.position, transform.forward, out hit)) {
-                GameObject victim = hit.collider.gameObject;
-                GameObject[] pieces = BLINDED_AM_ME.MeshCut.Cut(victim, transform.position, transform.right, capMaterial);
-
-                if (!pieces[1].GetComponent<Rigidbody>()) {
-                    pieces[1].AddComponent<Rigidbody>();
-                }
-
-                Destroy(pieces[1], 2);
-            }
-        }
-    }
-
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.green;
 
@@ -30,6 +13,27 @@ public class Example : MonoBehaviour {
 
         Gizmos.DrawLine(transform.position, transform.position + transform.up * 0.5f);
         Gizmos.DrawLine(transform.position, transform.position + -transform.up * 0.5f);
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == "Wood") {
+            GameObject victim = other.gameObject;
+            Debug.Log(victim.name);
+            GameObject[] woodPieces = BLINDED_AM_ME.MeshCut.Cut(victim, transform.position, transform.right, capMaterial);
+
+            foreach (GameObject woodPiece in woodPieces) {
+                woodPiece.tag = "Untagged";
+            }
+
+            Destroy(woodPieces[0].GetComponent<CapsuleCollider>());
+            woodPieces[0].AddComponent<CapsuleCollider>();
+
+            woodPieces[1].AddComponent<CapsuleCollider>();
+
+            if (!woodPieces[1].GetComponent<Rigidbody>()) {
+                woodPieces[1].AddComponent<Rigidbody>();
+            }
+        }
     }
 
 }
