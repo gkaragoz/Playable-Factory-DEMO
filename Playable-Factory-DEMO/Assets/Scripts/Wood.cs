@@ -3,7 +3,7 @@
 public class Wood : MonoBehaviour {
 
     [SerializeField]
-    private Side _side;
+    private Side _side = Side.Left;
 
     private MeshCollider _collider = null;
     private Rigidbody _rigidbody = null;
