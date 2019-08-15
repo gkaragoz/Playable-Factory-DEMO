@@ -3,7 +3,7 @@ using UnityEditor;
 #endif
 using UnityEngine;
 
-public class WoodCreator : MonoBehaviour {
+public class WoodCreator : MonoBehaviour, IPooledObject {
 
     public Wood leftWoodPiece = null;
     public Wood rightWoodPiece = null;
@@ -15,6 +15,9 @@ public class WoodCreator : MonoBehaviour {
     public float main_wood_total_length_minVal = 0.1f;
     public float main_wood_total_length_maxVal = 4f;
 
+    public float main_wood_scale_minWidth = 0.30f;
+    public float main_wood_scale_maxWidth = 0.5f;
+
     // Left Wood
     public float left_wood_minVal = 0.1f;
     public float left_wood_maxVal = 1f;
@@ -24,6 +27,7 @@ public class WoodCreator : MonoBehaviour {
     public float right_wood_maxVal = 1f;
 
     private float _main_wood_total_lengthVal = 4f;
+    private float _main_wood_scaleVal = 0.3f;
 
     public float GetMainWoodTotalLengthVal() {
         return _main_wood_total_lengthVal;
@@ -31,6 +35,10 @@ public class WoodCreator : MonoBehaviour {
 
     public float GetDestructedPointX() {
         return rightWoodPiece.transform.position.x + rightWoodPiece.GetLength();
+    }
+
+    public float GetScaleWidth() {
+        return _main_wood_scaleVal;
     }
 
     public void Create() {
@@ -47,8 +55,10 @@ public class WoodCreator : MonoBehaviour {
             leftWoodScaleValY = Random.Range(left_wood_minVal, left_wood_maxVal);
             rightWoodScaleValY = Random.Range(right_wood_minVal, right_wood_maxVal);
 
-            leftWoodPiece.SetScale(leftWoodScaleValY, woodCutArea.GetScaleValWidth());
-            rightWoodPiece.SetScale(rightWoodScaleValY, woodCutArea.GetScaleValWidth());
+            _main_wood_scaleVal = Random.Range(main_wood_scale_minWidth, main_wood_scale_maxWidth);
+
+            leftWoodPiece.SetScale(leftWoodScaleValY, _main_wood_scaleVal);
+            rightWoodPiece.SetScale(rightWoodScaleValY, _main_wood_scaleVal);
 
             // Snap left wood piece to right wood piece.
             leftWoodPiece.transform.position = new Vector3(rightWoodPiece.transform.position.x + rightWoodPiece.GetLength() + leftWoodPiece.GetLength(), leftWoodPiece.transform.position.y, leftWoodPiece.transform.position.z);
@@ -57,6 +67,10 @@ public class WoodCreator : MonoBehaviour {
         } while (leftWoodScaleValY + rightWoodScaleValY > _main_wood_total_lengthVal);
 
         SetMainWoodCollider();
+    }
+
+    public void OnObjectReused() {
+        Create();
     }
 
     private void SetMainWoodPosition() {
@@ -71,7 +85,7 @@ public class WoodCreator : MonoBehaviour {
         float collisionHeight = leftWoodPiece.transform.position.x - rightWoodPiece.transform.position.x;
 
         mainCollider.height = collisionHeight;
-        mainCollider.radius = woodCutArea.GetScaleValWidth() * 0.5f;
+        mainCollider.radius = _main_wood_scaleVal * 0.5f;
 
         float centerXOfWood = (leftWoodPiece.GetLength() + rightWoodPiece.GetLength()) * 0.5f;
         mainCollider.center = new Vector3(centerXOfWood, 0f, 0f);
@@ -85,11 +99,15 @@ public class WoodCreatorEditor : Editor {
 
     string info_wood_length = "Total length:";
     string info_wood_piece_length = "Piece length:";
+    string info_wood_scale = "Wood scale:";
 
     // Wood total length props
     float wood_total_length_minLimit = 0.25f;
     float wood_total_length_maxLimit = 4f;
-    
+
+    float wood_scale_width_minLimit = 0.30f;
+    float wood_scale_width_maxLimit = 0.5f;
+
     // Left wood props
     // Scale
     float left_wood_minLimit = 0.1f;
@@ -126,14 +144,20 @@ public class WoodCreatorEditor : Editor {
         EditorGUILayout.LabelField("Max Val:", woodCreator.main_wood_total_length_maxVal.ToString());
         EditorGUILayout.MinMaxSlider(ref woodCreator.main_wood_total_length_minVal, ref woodCreator.main_wood_total_length_maxVal, wood_total_length_minLimit, wood_total_length_maxLimit);
 
-        // Left wood size
+        // Wood total scale
+        GUILayout.Box(info_wood_scale);
+        EditorGUILayout.LabelField("Min Val:", woodCreator.main_wood_scale_minWidth.ToString());
+        EditorGUILayout.LabelField("Max Val:", woodCreator.main_wood_scale_maxWidth.ToString());
+        EditorGUILayout.MinMaxSlider(ref woodCreator.main_wood_scale_minWidth, ref woodCreator.main_wood_scale_maxWidth, wood_scale_width_minLimit, wood_scale_width_maxLimit);
+
+        // Left wood length
         GUILayout.Label("LEFT WOOD", style);
         GUILayout.Box(info_wood_piece_length);
         EditorGUILayout.LabelField("Min Val:", woodCreator.left_wood_minVal.ToString());
         EditorGUILayout.LabelField("Max Val:", woodCreator.left_wood_maxVal.ToString());
         EditorGUILayout.MinMaxSlider(ref woodCreator.left_wood_minVal, ref woodCreator.left_wood_maxVal, left_wood_minLimit, left_wood_maxLimit);
 
-        // Right wood size
+        // Right wood length
         GUILayout.Label("RIGHT WOOD", style);
         GUILayout.Box(info_wood_piece_length);
         EditorGUILayout.LabelField("Min Val:", woodCreator.right_wood_minVal.ToString());

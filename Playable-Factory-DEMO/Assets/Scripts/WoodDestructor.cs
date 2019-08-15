@@ -34,8 +34,6 @@ public class WoodDestructor : MonoBehaviour, IPooledObject {
         }
 
         if (other.gameObject.tag == "Blade") {
-            Debug.Log("Blade");
-
             Destruct(other.transform.position.x);
 
             _hasDestructed = true;
@@ -65,12 +63,6 @@ public class WoodDestructor : MonoBehaviour, IPooledObject {
         else {
             leftWoodScaleY = rightWoodScaleY = centerOfWood * 0.5f;
         }
-
-        Debug.Log("HIT POINT: " + hitPointX);
-        Debug.Log("CENTER OF WOOD: " + centerOfWood);
-        Debug.Log("TOTAL WOOD LENGTH: " + totalWoodLength);
-        Debug.Log("LEFT:" + leftWoodScaleY);
-        Debug.Log("RIGHT:" + rightWoodScaleY);
 
         foreach (Wood wood in _woodPieces) {
             if (wood.GetSide() == Wood.Side.Left) {
@@ -102,7 +94,6 @@ public class WoodDestructor : MonoBehaviour, IPooledObject {
     }
 
     private void SetPassive() {
-        Debug.Log("SET PASSIVE");
         _rigidbody.useGravity = false;
 
         _rigidbody.velocity = Vector3.zero;
