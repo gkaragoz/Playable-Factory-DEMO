@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class WoodDestructor : MonoBehaviour {
+public class WoodDestructor : MonoBehaviour, IPooledObject {
 
     [Header("Initializations")]
     [SerializeField]
@@ -9,6 +9,10 @@ public class WoodDestructor : MonoBehaviour {
     private CapsuleCollider _mainCollider = null;
     [SerializeField]
     private Rigidbody _rigidbody = null;
+
+    [Header("Settings")]
+    [SerializeField]
+    private float _hideAfterSeconds = 3f;
 
     [Header("Debug Only")]
     [SerializeField]
@@ -39,20 +43,55 @@ public class WoodDestructor : MonoBehaviour {
     }
 
     private void Destruct() {
-        RemoveMainRigidbody();
-        RemoveMainCollider();
+        DisableMainRigidbody();
+        DisableMainCollider();
 
         foreach (Wood wood in _woodPieces) {
             wood.OnDestructed(_bladeCollider);
         }
+
+        Invoke("SetPassive", _hideAfterSeconds);
     }
 
-    private void RemoveMainCollider() {
+    private void EnableMainCollider() {
+        _mainCollider.enabled = true;
+    }
+
+    private void EnableMainRigidbody() {
+        _rigidbody.detectCollisions = true;
+    }
+
+    private void DisableMainCollider() {
         _mainCollider.enabled = false;
     }
 
-    private void RemoveMainRigidbody() {
+    private void DisableMainRigidbody() {
         _rigidbody.detectCollisions = false;
     }
 
+    private void SetPassive() {
+        Debug.Log("SET PASSIVE");
+        _rigidbody.useGravity = false;
+
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.angularVelocity = Vector3.zero;
+
+        this.transform.position = WoodSpawner.instance.transform.position;
+        this.transform.eulerAngles = Vector3.zero;
+
+        foreach (Wood wood in _woodPieces) {
+            wood.ResetStatus();
+        }
+
+        this.gameObject.SetActive(false);
+    }
+
+    public void OnObjectReused() {
+        EnableMainCollider();
+        EnableMainRigidbody();
+
+        _rigidbody.useGravity = true;
+
+        _hasDestructed = false;
+    }
 }

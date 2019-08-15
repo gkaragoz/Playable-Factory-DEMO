@@ -7,6 +7,11 @@ public class Wood : MonoBehaviour {
 
     private MeshCollider _collider = null;
     private Rigidbody _rigidbody = null;
+    private Transform _startTransform = null;
+
+    private void Awake() {
+        _startTransform = this.transform;
+    }
 
     public enum Side {
         Right,
@@ -24,7 +29,24 @@ public class Wood : MonoBehaviour {
 
     private void AddRigidbody() {
         _rigidbody = this.gameObject.AddComponent<Rigidbody>();
-        _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        //_rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+    }
+
+    public void ResetStatus() {
+        Destroy(this._rigidbody);
+        Destroy(this._collider);
+
+        switch (_side) {
+            case Side.Right:
+                this.transform.localPosition = new Vector3(-2, 0, 0);
+                break;
+            case Side.Left:
+                this.transform.localPosition = new Vector3(2, 0, 0);
+                break;
+        }
+
+        this.transform.localEulerAngles = new Vector3(0, 0, -90);
+        this.transform.localScale = Vector3.one;
     }
 
     public void OnDestructed(BoxCollider ignoredCollision) {
