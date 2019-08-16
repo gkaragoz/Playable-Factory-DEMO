@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 
-public class WoodDestructor : MonoBehaviour {
+public class WoodDestructor : MonoBehaviour, IPooledObject {
 
     [Header("Initializations")]
+    [SerializeField]
+    private WoodCreator _woodCreator = null;
     [SerializeField]
     private Wood[] _woodPieces = null;
     [SerializeField]
@@ -19,9 +21,12 @@ public class WoodDestructor : MonoBehaviour {
     private bool _hasDestructed = false;
     [SerializeField]
     private BoxCollider _bladeCollider = null;
+    [SerializeField]
+    private Transform _recycleArea = null;
 
     private void Awake() {
         _bladeCollider = GameObject.FindGameObjectWithTag("Blade").GetComponent<BoxCollider>();
+        _recycleArea = GameObject.FindGameObjectWithTag("Recycle_Area").transform;
 
         if (_woodPieces == null || _mainCollider == null || _rigidbody == null) {
             Debug.LogError("Initialization failed. Check assignments of the Wood parts.");
@@ -40,12 +45,20 @@ public class WoodDestructor : MonoBehaviour {
         }
     }
 
+    private void Update() {
+        if (transform.position.y <= _recycleArea.position.y) {
+            SetPassive();
+        }
+    }
+
     private void Destruct(float hitPointX) {
+        CameraShake.instance.shakeDuration = 0.75f;
+
         DisableMainRigidbody();
         DisableMainCollider();
 
-        float centerOfWood = (transform.parent.position.x + 4) / 2;
-        float totalWoodLength = 4;
+        float totalWoodLength = _woodPieces[0].GetLength() + _woodPieces[1].GetLength();
+        float centerOfWood = (transform.position.x + totalWoodLength) / 2;
         float rightWoodScaleY = 0;
         float leftWoodScaleY = 0;
 
@@ -66,15 +79,13 @@ public class WoodDestructor : MonoBehaviour {
 
         foreach (Wood wood in _woodPieces) {
             if (wood.GetSide() == Wood.Side.Left) {
-                wood.SetScale(leftWoodScaleY);
+                wood.SetScaleY(leftWoodScaleY);
             } else {
-                wood.SetScale(rightWoodScaleY);
+                wood.SetScaleY(rightWoodScaleY);
             }
 
-            wood.OnDestructed(_bladeCollider, hitPointX);
+            wood.OnDestructed(_bladeCollider);
         }
-
-        Invoke("SetPassive", _hideAfterSeconds);
     }
 
     private void EnableMainCollider() {
@@ -109,7 +120,9 @@ public class WoodDestructor : MonoBehaviour {
         this.gameObject.SetActive(false);
     }
 
-    public void ResetStatus() {
+    public void OnObjectReused() {
+        _woodCreator.ReCreate();
+
         EnableMainCollider();
         EnableMainRigidbody();
 

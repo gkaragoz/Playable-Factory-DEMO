@@ -2,10 +2,6 @@
 
 public class BladeController : MonoBehaviour {
 
-    [Header("Debug Purpose Initializations")]
-    [SerializeField]
-    private Transform _rayPoint = null;
-
     [Header("Movement")]
     [SerializeField]
     private KeyCode _movementKey = KeyCode.Mouse2;
@@ -22,6 +18,8 @@ public class BladeController : MonoBehaviour {
     private float[] _boundsX = new float[] { -10f, 5f };
 
     private Camera _camera;
+
+    private GameObject _destructedObject = null;
 
     private Vector2 MouseAxis {
         get { return new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")); }
@@ -59,7 +57,7 @@ public class BladeController : MonoBehaviour {
 
     private void MouseMovement() {
         if (Input.GetKey(_movementKey) && MouseAxis != Vector2.zero) {
-            Vector3 desiredMove = new Vector3(-MouseAxis.x, 0, 0);
+            Vector3 desiredMove = new Vector3(MouseAxis.x, 0, 0);
 
             desiredMove *= _movementSpeed;
             desiredMove *= Time.deltaTime;
@@ -76,7 +74,7 @@ public class BladeController : MonoBehaviour {
         Vector3 move = new Vector3(offset.x * _movementSpeed, 0, 0);
 
         // Perform the movement
-        transform.Translate(move, Space.World);
+        transform.Translate(-1 * move, Space.World);
 
         // Cache the position
         _lastTouchPosition = newPosition;
@@ -92,15 +90,22 @@ public class BladeController : MonoBehaviour {
         transform.position = pos;
     }
 
-    private void OnDrawGizmos() {
-        Gizmos.color = Color.cyan;
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == "Cut_Area") {
+            GameManager.instance.AddScore();
 
-        if (_rayPoint == null) {
-            return;
+            _destructedObject = other.transform.parent.gameObject;
         }
+    }
 
-        Vector3 direction = _rayPoint.position - transform.position;
-        Gizmos.DrawRay(transform.position, direction);
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.tag == "Wood") {
+            if (_destructedObject != other.gameObject) {
+                GameManager.instance.AddFailure();
+            }
+
+            _destructedObject = null;
+        }
     }
 
 }

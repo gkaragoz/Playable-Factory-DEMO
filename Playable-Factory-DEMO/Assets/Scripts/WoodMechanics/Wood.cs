@@ -7,11 +7,6 @@ public class Wood : MonoBehaviour {
 
     private MeshCollider _collider = null;
     private Rigidbody _rigidbody = null;
-    private Transform _startTransform = null;
-
-    private void Awake() {
-        _startTransform = this.transform;
-    }
 
     public Side GetSide() {
         return _side;
@@ -35,25 +30,28 @@ public class Wood : MonoBehaviour {
         _rigidbody = this.gameObject.AddComponent<Rigidbody>();
     }
 
-    public void SetScale(float scaleY, float width = 0f) {
-        if (width == 0f) {
-            width = this.transform.localScale.x;
-        }
-
-        this.transform.localScale = new Vector3(width, scaleY * 0.5f, width);
+    public void SetScaleY(float scaleY) {
+        this.transform.localScale = new Vector3(this.transform.localScale.x, scaleY, this.transform.localScale.z);
     }
 
     public void ResetStatus() {
         Destroy(this._rigidbody);
         Destroy(this._collider);
 
-        this.transform.localPosition = Vector3.zero;
-        this.transform.localEulerAngles = new Vector3(0, 0, -90);
+        switch (_side) {
+            case Side.Right:
+                this.transform.localPosition = new Vector3(4, 0, 0);
+                break;
+            case Side.Left:
+                this.transform.localPosition = new Vector3(0, 0, 0);
+                break;
+        }
+
+        this.transform.localEulerAngles = new Vector3(0, 0, 90);
         this.transform.localScale = Vector3.one;
     }
 
-    public void OnDestructed(BoxCollider ignoredCollision, float hitPointX) {
-
+    public void OnDestructed(BoxCollider ignoredCollision) {
         AddCollider();
         IgnoreCollision(ignoredCollision);
         AddRigidbody();
@@ -64,17 +62,6 @@ public class Wood : MonoBehaviour {
 
     public float GetLength() {
         return this.transform.localScale.y * 2f;
-    }
-
-    public void SetPositionX(float posX) {
-        switch (_side) {
-            case Side.Right:
-                transform.position = new Vector3(posX, transform.position.y, transform.position.z);
-                break;
-            case Side.Left:
-                transform.position = new Vector3(posX - GetLength(), transform.position.y, transform.position.z);
-                break;
-        }
     }
 
 }
