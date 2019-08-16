@@ -19,6 +19,8 @@ public class BladeController : MonoBehaviour {
 
     private Camera _camera;
 
+    private GameObject _destructedObject = null;
+
     private Vector2 MouseAxis {
         get { return new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")); }
     }
@@ -86,6 +88,24 @@ public class BladeController : MonoBehaviour {
         Vector3 pos = transform.position;
         pos.x = Mathf.Clamp(transform.position.x, _boundsX[0], _boundsX[1]);
         transform.position = pos;
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == "Cut_Area") {
+            GameManager.instance.AddScore();
+
+            _destructedObject = other.transform.parent.gameObject;
+        }
+    }
+
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.tag == "Wood") {
+            if (_destructedObject != other.gameObject) {
+                GameManager.instance.AddFailure();
+            }
+
+            _destructedObject = null;
+        }
     }
 
 }

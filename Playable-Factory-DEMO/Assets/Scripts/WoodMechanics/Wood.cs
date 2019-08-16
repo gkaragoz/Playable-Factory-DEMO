@@ -52,7 +52,6 @@ public class Wood : MonoBehaviour {
     }
 
     public void OnDestructed(BoxCollider ignoredCollision) {
-
         AddCollider();
         IgnoreCollision(ignoredCollision);
         AddRigidbody();

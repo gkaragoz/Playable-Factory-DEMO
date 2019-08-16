@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 9160282572467578725}
   - component: {fileID: 7820040441293543139}
   - component: {fileID: 7013279306341423600}
+  - component: {fileID: 3721764031480799963}
   m_Layer: 0
   m_Name: Cut_Area
-  m_TagString: Untagged
+  m_TagString: Cut_Area
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,6 +95,19 @@ MonoBehaviour:
   _extraMultiplier: 1.025
   _minLength: 0.15
   _maxLength: 0.5
+--- !u!65 &3721764031480799963
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2971908477917217698}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000004, y: 2.0000005, z: 1.0000002}
+  m_Center: {x: 0.00000005960466, y: 0, z: -0.00000008940697}
 --- !u!1 &5528501225260880666
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,6 +257,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: f30080d8f306c314caa9e31e33fa7b29, type: 3}
+      propertyPath: m_TagString
+      value: Wood
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f30080d8f306c314caa9e31e33fa7b29, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -323,6 +341,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 7489b56e87e228b44b36ba61e3cf01eb, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 7489b56e87e228b44b36ba61e3cf01eb, type: 3}
+      propertyPath: m_TagString
+      value: Wood
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7489b56e87e228b44b36ba61e3cf01eb, type: 3}
       propertyPath: m_LocalPosition.x
