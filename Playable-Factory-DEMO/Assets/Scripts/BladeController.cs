@@ -57,7 +57,7 @@ public class BladeController : MonoBehaviour {
 
     private void MouseMovement() {
         if (Input.GetKey(_movementKey) && MouseAxis != Vector2.zero) {
-            Vector3 desiredMove = new Vector3(-MouseAxis.x, 0, 0);
+            Vector3 desiredMove = new Vector3(MouseAxis.x, 0, 0);
 
             desiredMove *= _movementSpeed;
             desiredMove *= Time.deltaTime;
@@ -74,7 +74,7 @@ public class BladeController : MonoBehaviour {
         Vector3 move = new Vector3(offset.x * _movementSpeed, 0, 0);
 
         // Perform the movement
-        transform.Translate(move, Space.World);
+        transform.Translate(-1 * move, Space.World);
 
         // Cache the position
         _lastTouchPosition = newPosition;
