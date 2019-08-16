@@ -21,9 +21,12 @@ public class WoodDestructor : MonoBehaviour, IPooledObject {
     private bool _hasDestructed = false;
     [SerializeField]
     private BoxCollider _bladeCollider = null;
+    [SerializeField]
+    private Transform _recycleArea = null;
 
     private void Awake() {
         _bladeCollider = GameObject.FindGameObjectWithTag("Blade").GetComponent<BoxCollider>();
+        _recycleArea = GameObject.FindGameObjectWithTag("Recycle_Area").transform;
 
         if (_woodPieces == null || _mainCollider == null || _rigidbody == null) {
             Debug.LogError("Initialization failed. Check assignments of the Wood parts.");
@@ -39,6 +42,12 @@ public class WoodDestructor : MonoBehaviour, IPooledObject {
             Destruct(other.transform.position.x);
 
             _hasDestructed = true;
+        }
+    }
+
+    private void Update() {
+        if (transform.position.y <= _recycleArea.position.y) {
+            SetPassive();
         }
     }
 
@@ -77,8 +86,6 @@ public class WoodDestructor : MonoBehaviour, IPooledObject {
 
             wood.OnDestructed(_bladeCollider);
         }
-
-        Invoke("SetPassive", _hideAfterSeconds);
     }
 
     private void EnableMainCollider() {

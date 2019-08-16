@@ -8,6 +8,7 @@ TagManager:
   - Blade
   - Platform
   - Cut_Area
+  - Recycle_Area
   layers:
   - Default
   - TransparentFX

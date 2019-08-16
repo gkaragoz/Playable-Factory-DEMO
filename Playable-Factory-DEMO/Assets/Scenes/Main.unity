@@ -1307,7 +1307,7 @@ MonoBehaviour:
     name: Wood
     prefab: {fileID: 5528501225260880666, guid: 8295cfb13ffae804ab72a4ba2d4f725a,
       type: 3}
-    size: 3
+    size: 5
 --- !u!114 &1837299285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1323,6 +1323,36 @@ MonoBehaviour:
   _startOnAwake: 1
   _spawnFrequency: 2
   _isRunning: 0
+--- !u!1 &1917421108
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1917421110}
+  m_Layer: 0
+  m_Name: RecycleArea
+  m_TagString: Recycle_Area
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1917421110
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917421108}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -3.5, z: 0}
+  m_LocalScale: {x: 70.61976, y: 2.1718, z: 117.40527}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &441795643859961735
 PrefabInstance:
   m_ObjectHideFlags: 0
