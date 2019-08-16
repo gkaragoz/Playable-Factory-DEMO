@@ -43,6 +43,8 @@ public class WoodDestructor : MonoBehaviour, IPooledObject {
     }
 
     private void Destruct(float hitPointX) {
+        CameraShake.instance.shakeDuration = 0.75f;
+
         DisableMainRigidbody();
         DisableMainCollider();
 
